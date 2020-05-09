@@ -301,7 +301,7 @@ public class Gaussian
 
 					//if the location of the second loop vector is zero 
 					if (secondNonZero == first.columnDimension && 
-						first.getRowVector().getEntryAt().getNumerator() == 0) 
+						first.getRowVector(j).getEntryAt(secondNonZero).getNumerator() == 0) 
 					{
 					
 						//skip to the next 
