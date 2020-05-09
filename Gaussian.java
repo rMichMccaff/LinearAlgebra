@@ -15,6 +15,13 @@ import java.util.ArrayList;
 public class Gaussian
 {
 
+	public static Matrix solution(Matrix first)
+	{
+
+		return reducedRowForm(rowForm(first)); 
+
+	}//end solution 
+
 	public static Matrix sort(Matrix first)
 	{
 
@@ -107,7 +114,7 @@ public class Gaussian
 		first = sort(first);
 
 		//starting at the beginning iterate through the matrix starting at the front
-		for (int i = 1 ; i <= first.rowDimension ; i++ ) 
+		for (int i = 1 ; i < first.rowDimension ; i++ ) 
 		{
 		
 			int firstNonZero = 1; 
@@ -137,7 +144,7 @@ public class Gaussian
 			}//end for loop
 
 			//starting at the next row iterate downward 
-			for (int j = 2; j <= first.rowDimension ; j++ ) 
+			for (int j = i + 1; j <= first.rowDimension ; j++ ) 
 			{
 			
 				int secondNonZero = 1; 
@@ -228,6 +235,132 @@ public class Gaussian
 	public static Matrix reducedRowForm(Matrix first )
 	{
 
+		//sort the matrix 
+		first = sort(first);
+
+		//iterate over the matrix starting from the bottom 
+		for (int i = first.rowDimension ; i > 1 ; i-- ) 
+		{
+		
+
+			int firstNonZero = 1; 
+			//iterate through the starting row to find the first non zero 
+			for (int j = 1 ; j <= first.columnDimension ; j++ ) 
+			{
+			
+				if(first.getRowVector(i).getEntryAt(j).getNumerator() == 0)
+				{
+
+					firstNonZero++; 
+
+				}//end if 
+				else
+				{
+
+					continue; 
+
+				}//end else
+
+			}//end for loop 
+
+			//if the row is all zeros go to the next iteration of the loop 
+			if(firstNonZero == first.rowDimension &&
+			   first.getRowVector(i).getEntryAt(firstNonZero).getNumerator() == 0) 
+			{
+			
+				continue; 
+
+			}//end if 
+			//else 
+			else
+			{
+
+				//iterate starting from one up to perform operations
+				for (int j = i - 1 ; j <= 1 ; j-- ) 
+				{
+					
+					int secondNonZero = 1; 
+
+					for (int k = 1 ; k <= first.columnDimension ; k++ ) 
+					{
+					
+						if(first.getRowVector(j).getEntryAt(k).getNumerator() == 0 ) 
+						{
+						
+							secondNonZero++; 
+
+						}//end if 
+						else
+						{
+
+							continue; 
+
+						}//end else 
+
+					}//end for loop 
+
+					//if the location of the second loop vector is zero 
+					if (secondNonZero == first.columnDimension && 
+						first.getRowVector().getEntryAt().getNumerator() == 0) 
+					{
+					
+						//skip to the next 
+						continue; 
+
+					}//end if 
+					//else 
+					else
+					{
+
+						//find a scaled vector to alter the second loop vector 
+						Vector scaledVector = first.getRowVector(i);
+						VectorEntry scalar = new VectorEntry(
+											scaledVector.getEntryAt(firstNonZero).getDenominator() ,
+											scaledVector.getEntryAt(firstNonZero).getNumerator()
+											);
+						scaledVector = VectorCalculator.scalarMultiplication(scalar,scaledVector);
+						VectorEntry operatingScalar = new VectorEntry(first.getRowVector(j).getEntryAt(secondNonZero).getNumerator(),
+														first.getRowVector(j).getEntryAt(secondNonZero).getDenominator()																						
+						  								);
+						scaledVector = VectorCalculator.scalarMultiplication(operatingScalar,scaledVector);
+
+						//perform the operation 
+						if(first.getRowVector(j).getEntryAt(secondNonZero).getNumerator() > 0)
+						{
+
+							//use subtraction 
+							Vector newVector = first.getRowVector(j); 
+							newVector = VectorCalculator.subtraction(newVector,scaledVector);
+							first.setRowVector(j,newVector);
+						
+						}//end if 
+						else
+						{
+
+							Vector newVector = first.getRowVector(j); 
+							newVector = VectorCalculator.addition(newVector,scaledVector);
+							first.setRowVector(j,newVector);	
+
+						}//end else
+						
+						//sort	
+						first = sort(first);
+
+					}//end else 
+
+			
+
+				}//end for loop 
+ 
+
+			}//end else 
+
+			
+
+		}//end for loop 
+
+
+		//return the result
 		return first; 
 
 	}//end reducedRowForm()  
