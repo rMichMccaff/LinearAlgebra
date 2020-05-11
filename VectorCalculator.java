@@ -18,6 +18,7 @@ public class VectorCalculator
 
 		return new Vector(localList); 
 
+	
 	}//end addition 
 
 
@@ -34,6 +35,8 @@ public class VectorCalculator
 		}//end for loop 
 
 		return new Vector(localList);
+	
+
 	}//end subtraction 
 
 
@@ -83,6 +86,7 @@ public class VectorCalculator
 
 		return new Vector(scalarList); 
 
+	
 	}//end scalarMultiplication method 
 
 
@@ -170,6 +174,7 @@ public class VectorCalculator
 
 		return radian;
 
+	
 	}//end angleBetween 
 
 
