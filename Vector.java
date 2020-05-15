@@ -150,4 +150,24 @@ public class Vector
 	}//end compareVector
 
 
+	public String print()
+	{
+
+		String bracket = "[ ";
+
+		String build = bracket; 
+
+		for (int i = 0 ; i < this.vectorList.size() ; i++ )
+		{
+		
+			build = build + " " + String.valueOf(vectorList.get(i).getNumerator() + "/" + String.valueOf(vectorList.get(i).getDenominator())  ); 
+
+		}//end for loop 
+
+		build = build + " ] ";
+
+		return build; 
+
+	}//end print 
+
 }//end class 

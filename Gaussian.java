@@ -15,12 +15,15 @@ import java.util.ArrayList;
 public class Gaussian
 {
 
+
 	public static Matrix solution(Matrix first)
 	{
 
 		return reducedRowForm(rowForm(first)); 
 
 	}//end solution 
+
+
 
 	public static Matrix sort(Matrix first)
 	{
