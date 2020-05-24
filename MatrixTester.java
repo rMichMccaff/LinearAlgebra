@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 public class MatrixTester
 {
 
-	ArrayList<Matrix> matrixList = new ArrayList<Matrix>(); 
+	static ArrayList<Matrix> matrixList = new ArrayList<Matrix>(); 
 
 
 	public static void main(String[] args)
@@ -35,7 +35,7 @@ public class MatrixTester
 			}//end for loop 
 
 			//call test method for getRowVector 
-			if(getRowVectorTest(scan) == true)
+			if(getRowVectorTestCycle(scan) == true)
 			{
 
 				System.out.println("****************");
@@ -65,15 +65,15 @@ public class MatrixTester
 	}//class 
 
 
-	public void debug(int caseNumber, String test)
+	public static void debug(int caseNumber, String test)
 	{
 
-		System.out.println("Test number " + caseNumber + " from " + test " FAILED. ");   
+		System.out.println("Test number " + caseNumber + " from " + test + " FAILED. ");   
 
 	}//end debug 
 
 
-	public boolean getRowVectorTestCycle(Scanner scan)
+	public static boolean getRowVectorTestCycle(Scanner scan)
 	{
 
 		//get the number of cases
@@ -105,7 +105,7 @@ public class MatrixTester
 	}//end getRowVectorTestCycle
 
 
-	public boolean getRowVectorTest(Scanner scan,Matrix matrix)
+	public static boolean getRowVectorTest(Scanner scan,Matrix matrix)
 	{
 
 		//iterate over the individual matrix row
@@ -139,7 +139,9 @@ public class MatrixTester
 
 
 
-	public void testCaseBuilder(Scanner scan)
+
+
+	public static void testCaseBuilder(Scanner scan)
 	{
 
 		int rowDimension = scan.nextInt(); 
@@ -173,20 +175,21 @@ public class MatrixTester
 
 		}//end for loop 
 
+		Matrix newMatrix = new Matrix(vectorList,true); 
 
 		//create a matrix object and add it to the matrix list 
-		this.matrixList.add( new Matrix(vectorList,true) ); 
+		matrixList.add( newMatrix ); 
 
 	
 	}//end testGetRowVector 
 	
 
 
-	public Vector testVector(Scanner scan)
+	public static Vector testVector(Scanner scan)
 	{
 
 		ArrayList<VectorEntry> entryList = new ArrayList<VectorEntry>(); 
-
+		int vectorDimension = scan.nextInt(); 
 		for (int i = 0 ; i < vectorDimension ; i++) 
 		{
 		
