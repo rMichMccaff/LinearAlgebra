@@ -44,6 +44,14 @@ public class MatrixTester
 			}//end if 
 
 			//call test method for getColumnVector
+			if (getColumnVectorTestCycle(scan)) 
+			{
+			
+				System.out.println("***************");
+				System.out.println("Get column vector test PASSED"); 
+
+			}//end if 
+
 
 			//call test method for setRowVector
 
@@ -115,7 +123,7 @@ public class MatrixTester
 			//build a vector reading from the input 
 			ArrayList<VectorEntry> entryList = new ArrayList<VectorEntry>(); 
 			int size = scan.nextInt(); 
-			//for loop to build matrix
+			//for loop to build vector
 			for (int j = 0 ; j < size ; j++ ) 
 			{
 			
@@ -138,7 +146,86 @@ public class MatrixTester
 	}//end getRowVectorTest
 
 
+	public static boolean getColumnVectorTestCycle(Scanner scan)
+	{
 
+		//get the number of test cases 
+		int numberOfCases = scan.nextInt(); 
+
+		//for loop to loop over the matrix list 
+		for (int i = 0 ; i < numberOfCases ;i++ ) 
+		{
+		
+			//if getColumnVector test is false 
+			if(getColumnVectorTest(scan,matrixList.get(i)) == false) 
+			{
+			
+				debug(i+1,"getColumnVectorTest");
+
+				//return false
+				return false; 
+
+			}//end if 
+
+		}//end for 
+
+
+		return true; 
+
+	}//end getColumnVectorTestCycle
+
+
+	public static boolean getColumnVectorTest(Scanner scan, Matrix matrix)
+	{
+
+		//for loop to iterate over the individual matrix columns 
+		for (int i = 0 ; i < matrix.columnDimension ; i++ ) 
+		{
+		
+			//build a vector reading from from the input
+			ArrayList<VectorEntry> entryList = new ArrayList<VectorEntry>(); 
+			int size = scan.nextInt(); 
+
+			//for loop to build vector 
+			for (int j = 0 ; j < size ; j++) 
+			{
+			
+				int numerator = scan.nextInt(); 
+				int denominator = scan.nextInt(); 
+				entryList.add( new VectorEntry(numerator,denominator) ); 
+
+			}//end for loop 
+
+			//if statement to check if vector matches the column 
+			if(matrix.getColumnVector(i+1).compareVector( new Vector(entryList) ) == false )
+			{
+				
+				return false; 
+
+			}//end if 			
+
+
+		}//end for loop 
+		
+		return true; 
+
+	}//end getColumnVectorTest
+
+
+	public static boolean setRowVectorTestCycle(Scanner scan)
+	{
+
+		return true; 
+
+	}//end setRowVectorTestCycle
+
+
+	public static boolean setRowVectorTest(Scanner scan)
+	{
+
+		return true; 
+
+	}//end setRowVectorTest 
 
 
 	public static void testCaseBuilder(Scanner scan)
