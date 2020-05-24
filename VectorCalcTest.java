@@ -89,28 +89,21 @@ public class VectorCalcTest
 			testLoaderSolutions(scan,2);
 			testLoaderSolutions(scan,3);
 			System.out.println(); 
-/*
-			System.out.println("2D Test Cases"); 
-			for (int i = 0 ;i < testVectors2D.size() ; i++ ) 
-			{
-			
-				System.out.println(testVectors2D.get(i).print()); 
-
-			}//end for 
-			System.out.println("3D Test Cases"); 
-			for (int i = 0 ; i < testVectors3D.size() ; i++ ) 
-			{
-			
-				System.out.println(testVectors3D.get(i).print()); 
-
-			}//end for 
-*/
 			scalarTestCycle();
 
 			//dot product
 			dotProductLoader(scan,2);
 			dotProductLoader(scan,3);
 			dotProductTestCycle(); 
+
+			//cross product 
+			solutionVectors3D = new ArrayList<Vector>(); 
+			testLoaderSolutions(scan,3);
+			crossProductTestCycle();
+
+			//angle between 
+			angleBetweenTest();
+
 
 		}//end try
 		//catch block for file not found 
@@ -692,19 +685,74 @@ public class VectorCalcTest
 
 
 
-	public static boolean crossProductTest()
+	public static void crossProductTestCycle()
 	{
 
-		return true; 
+		 System.out.println("****************");
+		 System.out.println("CROSS PRODUCT TEST");
+		 
+		 for (int i = 0 ; i < solutionVectors3D.size() ; i++ ) 
+		 {
+		 
+		 	if(i +1 > solutionVectors3D.size() ) 
+		 	{
+		 	
+		 		break; 
+
+		 	}//end if 
+		 	if(crossProductTest(i,i,i+1,i+1) == false)
+		 	{
+		 		debugPrint(i,i,i+1,i+1,3);
+
+		 	}//end if 
+		 	
+
+		 }//end for loop 
+
+
 
 	}//end crossProductTest 
 
 
-
-	public static boolean angleBetweenTest()
+	public static boolean crossProductTest(int solutionLoc, int first, int second, int testNumber)
 	{
 
-		return true; 
+
+
+		if ( solutionVectors3D.get(solutionLoc).compareVector( 
+													VectorCalculator.crossProduct( 
+															testVectors3D.get(first),testVectors3D.get(second) ) 
+													) 
+			) 
+		{
+			
+			System.out.println("Test " + (testNumber) + " PASSED"); 
+			return true; 
+
+		}//end if 
+		else
+		{
+
+			return false; 
+
+		}//end else
+
+	}//end crossProductTest
+
+
+
+	public static void angleBetweenTest()
+	{
+
+		System.out.println(testVectors2D.get(2).print());
+		System.out.println(testVectors2D.get(3).print());
+
+		System.out.println("*******************"); 
+		System.out.println("ANGLE BETWEEN TEST"); 
+		System.out.println(VectorCalculator.angleBetween(testVectors2D.get(1),testVectors2D.get(2))); 
+		System.out.println(VectorCalculator.angleBetween(testVectors2D.get(2),testVectors2D.get(3))); 
+		System.out.println(VectorCalculator.angleBetween(testVectors2D.get(4),testVectors2D.get(5))); 
+
 
 	}//end angleBetweenTest
 

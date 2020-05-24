@@ -161,15 +161,17 @@ public class VectorCalculator
 
 		}//end for loop 
 
+		double denominatorPt1 = Math.sqrt( (double)sumOfSquared.getNumerator() / (double)sumOfSquared.getDenominator() );
 
-		double denominatorPt1 = Math.sqrt( sumOfSquared.getNumerator() / sumOfSquared.getDenominator() );
-		double denominatorPt2 = Math.sqrt(sumOfSquared2.getNumerator() / sumOfSquared2.getDenominator() );	
-		double finalNumerator = numerator.getNumerator() / numerator.getDenominator(); 
+		double denominatorPt2 = (double)Math.sqrt((double)sumOfSquared2.getNumerator() / (double)sumOfSquared2.getDenominator() );	
+
+		double finalNumerator = (double)numerator.getNumerator() / (double)numerator.getDenominator(); 
+
 		double finalDenominator = denominatorPt1 * denominatorPt2; 
-		double toArcCos = finalNumerator / finalDenominator; 
+		double toArcCos = (double)finalNumerator / finalDenominator; 
+
 
 		double radian = Math.acos(toArcCos);
-
 		radian = radian *(180/Math.PI);
 
 		return radian;

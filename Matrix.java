@@ -245,4 +245,20 @@ public class Matrix
 	}//end compareMatricies
 
 
+	public String print()
+	{
+		String returnString = ""; 
+
+		for (int i = 0 ; i < rowVectors.size()  ; i++ ) 
+		{
+			
+			returnString = returnString + this.rowVectors.get(i).print() + "/n";
+			
+		}//end for loop 
+
+		return returnString; 
+
+	}//end print 
+
+
 }//end class 
