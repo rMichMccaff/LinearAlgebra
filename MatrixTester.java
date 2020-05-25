@@ -54,12 +54,35 @@ public class MatrixTester
 
 
 			//call test method for setRowVector
+			if ( setRowVectorTestCycle(scan) ) 
+			{
+			
+				System.out.println("***************"); 
+				System.out.println("Set row vector test PASSED "); 
+
+			}//end if 
 
 			//call test method for setColumnVector 
+			if ( setColumnVectorTestCycle(scan) ) 
+			{
+			
+				System.out.println("****************");
+				System.out.println("Set column vector test PASSED");  
+
+			}//end if 
 
 			//call test method for compareMatricies 
+			if ( compareMatrixTest(scan) ) 
+			{
+				
+				System.out.println("****************");
+				System.out.println("Compare Matrix test PASSED"); 				
+
+			}//end if 
 
 			//call test method for print
+			printTest();
+
 
 		}
 		//catch 
@@ -199,7 +222,8 @@ public class MatrixTester
 			//if statement to check if vector matches the column 
 			if(matrix.getColumnVector(i+1).compareVector( new Vector(entryList) ) == false )
 			{
-				
+			
+				debug(i+1,"getColumnVectorTest"); 
 				return false; 
 
 			}//end if 			
@@ -215,17 +239,163 @@ public class MatrixTester
 	public static boolean setRowVectorTestCycle(Scanner scan)
 	{
 
+		//scan for number of cases
+		int numberOfCases = scan.nextInt(); 
+
+		//for loop to change vectors 
+		for (int i = 0 ; i < numberOfCases ; i++) 
+		{
+			
+			//scan for location 
+			int location = scan.nextInt(); 
+
+			//scan for vector size
+			int size = scan.nextInt(); 
+
+			//start arraylist for vectoro entries
+			ArrayList<VectorEntry> entryList = new ArrayList<VectorEntry>(); 
+
+			//for loop to build vector
+			for (int j = 0 ; j < size ; j++) 
+			{
+			
+				int numerator = scan.nextInt(); 
+				int denominator = scan.nextInt(); 
+
+				entryList.add( new VectorEntry(numerator,denominator) ); 
+
+			}//end for loop 
+
+			Vector testVector = new Vector(entryList); 
+
+			//set at ith matrix in matrix list 
+			matrixList.get(i).setRowVector(location,testVector);
+
+			//if the row matrix is different than test vector 
+			if (matrixList.get(i).getRowVector(location).compareVector(testVector) == false) 
+			{
+			
+				//return false
+				debug(i+1,"setRowVector"); 
+				return false; 
+
+			}//end if 
+
+
+		}
+
+
 		return true; 
 
 	}//end setRowVectorTestCycle
 
 
-	public static boolean setRowVectorTest(Scanner scan)
+	public static boolean setColumnVectorTestCycle(Scanner scan)
 	{
+
+		//scan for the number of tests
+		int numberOfCases = scan.nextInt(); 
+
+		//for loop to iterate over the matrix list 
+		for (int i = 0 ; i < numberOfCases ; i++) 
+		{
+		
+			//scan for size of vector 
+			int size = scan.nextInt(); 
+
+			//scan for location 
+			int location = scan.nextInt(); 
+
+			//arraylist for creating the new vector 
+			ArrayList<VectorEntry> entryList = new ArrayList<VectorEntry>(); 
+
+			//for loop to create vector 
+			for (int j = 0 ; j < size ; j++ ) 
+			{
+			
+				int numerator = scan.nextInt(); 
+				int denominator = scan.nextInt(); 
+
+				entryList.add( new VectorEntry( numerator , denominator ) ); 
+
+			}//end for loop 
+
+			//create test vector
+			Vector testVector = new Vector(entryList);
+
+			//set the vector at a new location 
+			matrixList.get(i).setColumnVector(location,testVector);
+	
+			//if the  matix is different from the test vector
+			if (matrixList.get(i).getColumnVector(location).compareVector(testVector) == false) 
+			{	
+				
+				debug(i+1,"setColumnVectorTest"); 
+				return false; 
+
+			}//end if 
+
+
+		}//end for loop 
 
 		return true; 
 
-	}//end setRowVectorTest 
+	}//end setColumnVectorTestCycle
+
+
+	public static boolean compareMatrixTest(Scanner scan)
+	{
+
+		//loop over the matricies and compare likes 
+		for (int i = 0 ; i < matrixList.size() ; i++) 
+		{
+		
+			if (matrixList.get(i).compareMatricies(matrixList.get(i)) == false ) 
+			{
+			
+				return false;
+
+			}//end if 
+
+		}//end for 
+
+		//loop over the matricies and compre differents
+		for (int i = 0 ; i < matrixList.size() ; i++) 
+		{
+			if(i+1 == matrixList.size())
+			{	
+
+				break; 
+
+			}//elsend if  
+
+
+			if (matrixList.get(i).compareMatricies(matrixList.get(i+1)) == true) 
+			{
+			
+				return false;  
+
+			}//end if 
+
+		}//end for loop
+
+		return true; 
+	}//end compareMatrixTest
+
+
+	public static void printTest()
+	{
+
+		//print matricies 
+		for (int i = 0 ; i < matrixList.size() ; i++ ) 
+		{	
+			System.out.println("*******************"); 
+			System.out.println( matrixList.get(i).print() ); 
+			System.out.println("*******************"); 
+
+		}//end for loop 
+
+	}//end printTest
 
 
 	public static void testCaseBuilder(Scanner scan)
@@ -271,7 +441,6 @@ public class MatrixTester
 	}//end testGetRowVector 
 	
 
-
 	public static Vector testVector(Scanner scan)
 	{
 
@@ -290,7 +459,6 @@ public class MatrixTester
 
 	
 	}//end testVector
-
 
 
 
